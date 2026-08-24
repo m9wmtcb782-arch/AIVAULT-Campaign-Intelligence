@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AIVAULT TS → TXT</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f5f7fa;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Noto Sans TC",sans-serif;color:#172033}
+.wrap{max-width:720px;margin:40px auto;padding:20px}
+.card{background:#fff;border-radius:20px;padding:28px;box-shadow:0 10px 30px rgba(0,0,0,.08)}
+h1{margin:0 0 10px}
+p{color:#667085}
+.drop{display:block;border:2px dashed #aab4c3;border-radius:16px;padding:50px 20px;text-align:center;cursor:pointer;background:#fafbfd}
+.drop:hover{background:#f0f3f7}
+.icon{font-size:42px}
+.title{font-size:18px;font-weight:700;margin-top:10px}
+.hint{margin-top:8px;color:#667085}
+input{display:none}
+.info{display:none;background:#f3f5f7;border-radius:12px;padding:15px;margin-top:18px}
+.name{font-weight:700;word-break:break-all}
+.size{font-size:14px;color:#667085;margin-top:5px}
+.actions{display:flex;gap:10px;margin-top:18px}
+button{border:0;border-radius:11px;padding:14px 20px;font-weight:700;cursor:pointer}
+#convert{background:#172033;color:#fff}
+#clear{background:#e8ecf1}
+button:disabled{opacity:.4}
+.status{margin-top:18px;padding:14px;background:#f3f5f7;border-radius:11px;line-height:1.6}
+</style>
+</head>
+
+<body>
+<div class="wrap">
+<div class="card">
+
+<h1>AIVAULT TS → TXT</h1>
+<p>完整將 TypeScript .ts 轉換成 .txt。</p>
+
+<label class="drop" id="drop" for="file">
+<div class="icon">📄</div>
+<div class="title">選擇 .ts 檔案</div>
+<div class="hint">也可以直接拖曳 .ts 檔案到這裡</div>
+</label>
+
+<input id="file" type="file" accept=".ts">
+
+<div class="info" id="info">
+<div class="name" id="name"></div>
+<div class="size" id="size"></div>
+</div>
+
+<div class="actions">
+<button id="convert" disabled>轉換並下載 TXT</button>
+<button id="clear">清除</button>
+</div>
+
+<div class="status" id="status">
+尚未選擇檔案。
+</div>
+
+</div>
+</div>
+
+<script>
+const fileInput=document.getElementById("file");
+const drop=document.getElementById("drop");
+const info=document.getElementById("info");
+const nameEl=document.getElementById("name");
+const sizeEl=document.getElementById("size");
+const convert=document.getElementById("convert");
+const clear=document.getElementById("clear");
+const status=document.getElementById("status");
+
+let selectedFile=null;
+
+function formatSize(bytes){
+    if(bytes<1024)return bytes+" B";
+    if(bytes<1024*1024)return (bytes/1024).toFixed(2)+" KB";
+    if(bytes<1024*1024*1024)return (bytes/1024/1024).toFixed(2)+" MB";
+    return (bytes/1024/1024/1024).toFixed(2)+" GB";
+}
+
+function selectFile(file){
+
+    if(!file || !/\.ts$/i.test(file.name)){
+        selectedFile=null;
+        convert.disabled=true;
+        info.style.display="none";
+        status.textContent="請選擇 .ts TypeScript 檔案。";
+        return;
+    }
+
+    selectedFile=file;
+
+    info.style.display="block";
+    nameEl.textContent=file.name;
+    sizeEl.textContent="原始檔案大小："+formatSize(file.size);
+
+    convert.disabled=false;
+
+    status.textContent="檔案已準備完成。";
+}
+
+fileInput.addEventListener("change",()=>{
+    selectFile(fileInput.files[0]);
+});
+
+drop.addEventListener("dragover",(e)=>{
+    e.preventDefault();
+});
+
+drop.addEventListener("drop",(e)=>{
+    e.preventDefault();
+    selectFile(e.dataTransfer.files[0]);
+});
+
+convert.addEventListener("click",async()=>{
+
+    if(!selectedFile)return;
+
+    try{
+
+        convert.disabled=true;
+
+        status.textContent="正在完整轉換……";
+
+        /*
+         * 直接讀取原始檔案。
+         * 不使用 textarea。
+         * 不使用 innerHTML。
+         * 不經 AI。
+         * 不上傳伺服器。
+         */
+
+        const buffer=await selectedFile.arrayBuffer();
+
+        /*
+         * 直接用原始資料建立 TXT Blob。
+         * 不修改內容、不重新格式化。
+         */
+
+        const blob=new Blob(
+            [buffer],
+            {type:"text/plain;charset=utf-8"}
+        );
+
+        const url=URL.createObjectURL(blob);
+
+        const outputName=
+            selectedFile.name.replace(/\.ts$/i,"")+".txt";
+
+        const link=document.createElement("a");
+
+        link.href=url;
+        link.download=outputName;
+
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+
+        setTimeout(()=>{
+            URL.revokeObjectURL(url);
+        },1000);
+
+        status.innerHTML=
+            "✓ 轉換完成<br>"+
+            "檔案："+outputName+"<br>"+
+            "大小："+formatSize(selectedFile.size);
+
+    }catch(error){
+
+        console.error(error);
+
+        status.textContent=
+            "轉換失敗："+error.message;
+
+    }finally{
+
+        convert.disabled=false;
+
+    }
+});
+
+clear.addEventListener("click",()=>{
+
+    selectedFile=null;
+
+    fileInput.value="";
+
+    info.style.display="none";
+
+    convert.disabled=true;
+
+    status.textContent="尚未選擇檔案。";
+});
+</script>
+
+</body>
+</html>
