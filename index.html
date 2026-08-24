@@ -1,0 +1,1510 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>AIVAULT Campaign Intelligence</title>
+
+<style>
+:root{
+    --yellow:#FFD400;
+    --yellow-light:#FFF8D6;
+    --yellow-soft:#FFFDF1;
+
+    --blue:#092A47;
+    --blue-2:#164A73;
+
+    --text:#17202A;
+    --muted:#687583;
+
+    --white:#FFFFFF;
+    --bg:#F7F9FB;
+    --line:#E7ECF0;
+
+    --green:#17865A;
+    --shadow:0 12px 40px rgba(9,42,71,.08);
+}
+
+*{
+    box-sizing:border-box;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    margin:0;
+    background:var(--bg);
+    color:var(--text);
+
+    font-family:
+        -apple-system,
+        BlinkMacSystemFont,
+        "Segoe UI",
+        "Noto Sans TC",
+        "Microsoft JhengHei",
+        sans-serif;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+
+    height:72px;
+
+    background:rgba(255,255,255,.94);
+    backdrop-filter:blur(15px);
+
+    border-bottom:1px solid var(--line);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 32px;
+}
+
+.logo{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.logo-box{
+    width:43px;
+    height:43px;
+
+    border-radius:12px;
+
+    background:var(--yellow);
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    color:var(--blue);
+
+    font-size:16px;
+    font-weight:900;
+}
+
+.logo-text{
+    line-height:1.15;
+}
+
+.logo-text strong{
+    display:block;
+
+    color:var(--blue);
+
+    font-size:16px;
+    letter-spacing:.5px;
+}
+
+.logo-text span{
+    display:block;
+
+    margin-top:4px;
+
+    color:#7B8794;
+
+    font-size:10px;
+    letter-spacing:.5px;
+}
+
+.header-right{
+    display:flex;
+    align-items:center;
+    gap:14px;
+}
+
+.online{
+    display:flex;
+    align-items:center;
+    gap:7px;
+
+    padding:8px 12px;
+
+    border:1px solid var(--line);
+
+    border-radius:20px;
+
+    color:#63717E;
+
+    font-size:11px;
+}
+
+.online-dot{
+    width:7px;
+    height:7px;
+
+    border-radius:50%;
+
+    background:var(--green);
+}
+
+/* =========================
+   HERO
+========================= */
+
+.hero{
+    min-height:620px;
+
+    background:
+        radial-gradient(
+            circle at 85% 15%,
+            rgba(255,212,0,.24),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            #FFFFFF 0%,
+            #FFFFFF 58%,
+            #FFF9D9 100%
+        );
+
+    display:flex;
+    align-items:center;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.hero::before{
+    content:"";
+
+    position:absolute;
+
+    width:500px;
+    height:500px;
+
+    right:-220px;
+    bottom:-260px;
+
+    border:70px solid rgba(255,212,0,.08);
+
+    border-radius:50%;
+}
+
+.hero-inner{
+    width:min(1180px, calc(100% - 40px));
+
+    margin:auto;
+
+    display:grid;
+
+    grid-template-columns:
+        1.15fr .85fr;
+
+    gap:60px;
+
+    align-items:center;
+}
+
+.hero-label{
+    display:inline-flex;
+
+    align-items:center;
+    gap:8px;
+
+    padding:8px 12px;
+
+    border-radius:20px;
+
+    background:var(--yellow-light);
+
+    border:1px solid #F1DF7A;
+
+    color:#775F00;
+
+    font-size:11px;
+    font-weight:800;
+
+    letter-spacing:.6px;
+}
+
+.hero h1{
+    margin:20px 0 12px;
+
+    color:var(--blue);
+
+    font-size:
+        clamp(38px, 6vw, 68px);
+
+    line-height:1.08;
+
+    letter-spacing:-2px;
+}
+
+.hero h1 span{
+    display:block;
+
+    color:#263E53;
+}
+
+.hero-subtitle{
+    margin:0;
+
+    font-size:
+        clamp(20px, 3vw, 30px);
+
+    font-weight:800;
+
+    color:var(--blue);
+}
+
+.hero-description{
+    max-width:680px;
+
+    margin-top:20px;
+
+    color:var(--muted);
+
+    font-size:15px;
+
+    line-height:1.9;
+}
+
+.hero-actions{
+    display:flex;
+
+    gap:12px;
+
+    margin-top:28px;
+
+    flex-wrap:wrap;
+}
+
+.btn{
+    border:0;
+
+    padding:13px 20px;
+
+    border-radius:12px;
+
+    font-size:13px;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.2s;
+}
+
+.btn-primary{
+    background:var(--yellow);
+
+    color:var(--blue);
+
+    box-shadow:
+        0 8px 22px rgba(255,212,0,.25);
+}
+
+.btn-primary:hover{
+    transform:translateY(-2px);
+}
+
+.btn-secondary{
+    background:white;
+
+    color:var(--blue);
+
+    border:1px solid var(--line);
+}
+
+.btn-secondary:hover{
+    border-color:#D6C35A;
+}
+
+/* =========================
+   AI VISUAL
+========================= */
+
+.ai-visual{
+    position:relative;
+
+    min-height:390px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+.ai-core{
+    width:230px;
+    height:230px;
+
+    border-radius:50%;
+
+    background:white;
+
+    border:1px solid #E9E1AE;
+
+    box-shadow:
+        0 20px 60px rgba(9,42,71,.12);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    position:relative;
+
+    z-index:2;
+}
+
+.ai-core::before{
+    content:"";
+
+    position:absolute;
+
+    inset:20px;
+
+    border-radius:50%;
+
+    border:1px solid #F1DF7A;
+}
+
+.ai-core-content{
+    text-align:center;
+
+    position:relative;
+
+    z-index:3;
+}
+
+.ai-core-icon{
+    font-size:45px;
+}
+
+.ai-core-title{
+    margin-top:10px;
+
+    color:var(--blue);
+
+    font-size:16px;
+
+    font-weight:900;
+}
+
+.ai-core-status{
+    margin-top:5px;
+
+    color:var(--green);
+
+    font-size:10px;
+}
+
+.orbit{
+    position:absolute;
+
+    border:1px dashed #D7DDE2;
+
+    border-radius:50%;
+}
+
+.orbit-1{
+    width:310px;
+    height:310px;
+}
+
+.orbit-2{
+    width:410px;
+    height:410px;
+}
+
+.node{
+    position:absolute;
+
+    width:82px;
+    height:82px;
+
+    border-radius:18px;
+
+    background:white;
+
+    border:1px solid var(--line);
+
+    box-shadow:var(--shadow);
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+    justify-content:center;
+
+    gap:5px;
+
+    font-size:11px;
+
+    font-weight:800;
+
+    color:var(--blue);
+
+    z-index:5;
+}
+
+.node-icon{
+    font-size:22px;
+}
+
+.node-news{
+    top:15px;
+    right:80px;
+}
+
+.node-needs{
+    bottom:25px;
+    right:20px;
+}
+
+.node-policy{
+    bottom:20px;
+    left:20px;
+}
+
+.node-opponent{
+    top:30px;
+    left:55px;
+}
+
+/* =========================
+   PRINCIPLE
+========================= */
+
+.principle{
+    background:white;
+
+    padding:70px 20px;
+
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+}
+
+.section-inner{
+    width:min(1100px,100%);
+
+    margin:auto;
+}
+
+.section-title{
+    text-align:center;
+
+    color:var(--blue);
+
+    font-size:28px;
+
+    font-weight:900;
+
+    margin-bottom:10px;
+}
+
+.section-subtitle{
+    text-align:center;
+
+    color:var(--muted);
+
+    font-size:13px;
+
+    margin-bottom:40px;
+}
+
+.flow{
+    display:grid;
+
+    grid-template-columns:
+        repeat(5,1fr);
+
+    gap:12px;
+}
+
+.flow-card{
+    position:relative;
+
+    padding:22px 15px;
+
+    background:var(--yellow-soft);
+
+    border:1px solid #F1E6A8;
+
+    border-radius:16px;
+
+    text-align:center;
+}
+
+.flow-number{
+    width:28px;
+    height:28px;
+
+    margin:0 auto 10px;
+
+    border-radius:50%;
+
+    background:var(--yellow);
+
+    color:var(--blue);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:11px;
+
+    font-weight:900;
+}
+
+.flow-icon{
+    font-size:26px;
+
+    margin-bottom:8px;
+}
+
+.flow-title{
+    color:var(--blue);
+
+    font-size:13px;
+
+    font-weight:900;
+}
+
+.flow-text{
+    margin-top:6px;
+
+    color:var(--muted);
+
+    font-size:10px;
+
+    line-height:1.6;
+}
+
+/* =========================
+   INTELLIGENCE
+========================= */
+
+.intelligence{
+    padding:70px 20px;
+}
+
+.modules{
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:16px;
+}
+
+.module{
+    background:white;
+
+    border:1px solid var(--line);
+
+    border-radius:18px;
+
+    padding:23px;
+
+    box-shadow:
+        0 5px 20px rgba(0,0,0,.025);
+
+    transition:.2s;
+}
+
+.module:hover{
+    transform:translateY(-4px);
+
+    box-shadow:var(--shadow);
+
+    border-color:#E9D875;
+}
+
+.module-icon{
+    width:45px;
+    height:45px;
+
+    border-radius:13px;
+
+    background:var(--yellow-light);
+
+    display:flex;
+
+    align-items:center;
+    justify-content:center;
+
+    font-size:22px;
+
+    margin-bottom:15px;
+}
+
+.module h3{
+    margin:0;
+
+    color:var(--blue);
+
+    font-size:16px;
+}
+
+.module p{
+    color:var(--muted);
+
+    font-size:12px;
+
+    line-height:1.7;
+
+    margin:8px 0 0;
+}
+
+/* =========================
+   AI DECISION
+========================= */
+
+.decision{
+    padding:0 20px 70px;
+}
+
+.decision-box{
+    width:min(1100px,100%);
+
+    margin:auto;
+
+    background:var(--blue);
+
+    border-radius:24px;
+
+    padding:38px;
+
+    color:white;
+
+    position:relative;
+
+    overflow:hidden;
+}
+
+.decision-box::after{
+    content:"AI";
+
+    position:absolute;
+
+    right:-10px;
+    bottom:-75px;
+
+    font-size:190px;
+
+    font-weight:900;
+
+    color:rgba(255,212,0,.08);
+}
+
+.decision-title{
+    position:relative;
+    z-index:2;
+
+    font-size:23px;
+
+    font-weight:900;
+}
+
+.decision-text{
+    position:relative;
+    z-index:2;
+
+    color:#C5D4E0;
+
+    font-size:13px;
+
+    line-height:1.8;
+
+    max-width:680px;
+
+    margin-top:8px;
+}
+
+.decision-list{
+    position:relative;
+    z-index:2;
+
+    display:grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap:12px;
+
+    margin-top:25px;
+}
+
+.decision-item{
+    padding:17px;
+
+    background:rgba(255,255,255,.07);
+
+    border:1px solid rgba(255,255,255,.1);
+
+    border-radius:14px;
+}
+
+.decision-item strong{
+    display:block;
+
+    font-size:13px;
+
+    margin-bottom:7px;
+}
+
+.decision-item span{
+    color:#B7C9D7;
+
+    font-size:11px;
+
+    line-height:1.6;
+}
+
+/* =========================
+   FOOTER
+========================= */
+
+.footer{
+    padding:30px 20px;
+
+    background:white;
+
+    border-top:1px solid var(--line);
+
+    text-align:center;
+
+    color:#8995A0;
+
+    font-size:10px;
+}
+
+.footer strong{
+    color:var(--blue);
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media(max-width:900px){
+
+    .hero{
+        min-height:auto;
+
+        padding:70px 0;
+    }
+
+    .hero-inner{
+        grid-template-columns:1fr;
+
+        gap:30px;
+    }
+
+    .ai-visual{
+        min-height:340px;
+    }
+
+    .flow{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .modules{
+        grid-template-columns:
+            repeat(2,1fr);
+    }
+
+    .decision-list{
+        grid-template-columns:1fr;
+    }
+}
+
+@media(max-width:600px){
+
+    .header{
+        height:64px;
+
+        padding:0 15px;
+    }
+
+    .logo-text span{
+        display:none;
+    }
+
+    .online{
+        display:none;
+    }
+
+    .hero-inner{
+        width:calc(100% - 30px);
+    }
+
+    .hero h1{
+        font-size:42px;
+
+        letter-spacing:-1.5px;
+    }
+
+    .hero-subtitle{
+        font-size:21px;
+    }
+
+    .hero-description{
+        font-size:13px;
+    }
+
+    .ai-visual{
+        transform:scale(.82);
+
+        margin-top:-20px;
+        margin-bottom:-25px;
+    }
+
+    .flow{
+        grid-template-columns:1fr;
+    }
+
+    .modules{
+        grid-template-columns:1fr;
+    }
+
+    .decision-box{
+        padding:25px 20px;
+    }
+
+    .section-title{
+        font-size:23px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     HEADER
+========================= -->
+
+<header class="header">
+
+    <div class="logo">
+
+        <div class="logo-box">
+            AI
+        </div>
+
+        <div class="logo-text">
+
+            <strong>
+                AIVAULT Campaign Intelligence
+            </strong>
+
+            <span>
+                AI 選區情報與政策決策中心
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="header-right">
+
+        <div class="online">
+
+            <span class="online-dot"></span>
+
+            AI Intelligence Online
+
+        </div>
+
+    </div>
+
+</header>
+
+
+<!-- =========================
+     HERO
+========================= -->
+
+<section class="hero">
+
+    <div class="hero-inner">
+
+        <div>
+
+            <div class="hero-label">
+                🧠 AI CAMPAIGN INTELLIGENCE
+            </div>
+
+
+            <h1>
+
+                從人民的問題開始。
+
+                <span>
+                    看見問題，找到答案，
+                </span>
+
+                <span>
+                    真正做到。
+                </span>
+
+            </h1>
+
+
+            <p class="hero-subtitle">
+                AI × 選區情報 × 公共政策
+            </p>
+
+
+            <p class="hero-description">
+
+                每天追蹤選區正在發生的事情，
+                分析公開新聞、政府資料、議會資訊與公共需求，
+                找出真正值得解決的問題。
+
+                <br>
+
+                再進一步判斷：
+                <strong>能做什麼、能爭取什麼，以及不能承諾什麼。</strong>
+
+            </p>
+
+
+            <div class="hero-actions">
+
+                <button
+                    class="btn btn-primary"
+                    onclick="startDistrictIntelligence()">
+
+                    查看今日選區情報
+
+                </button>
+
+
+                <button
+                    class="btn btn-secondary"
+                    onclick="startPolicyAI()">
+
+                    啟動 AI 政策分析
+
+                </button>
+
+            </div>
+
+        </div>
+
+
+        <!-- AI VISUAL -->
+
+        <div class="ai-visual">
+
+            <div class="orbit orbit-1"></div>
+            <div class="orbit orbit-2"></div>
+
+
+            <div class="node node-news">
+
+                <div class="node-icon">
+                    📰
+                </div>
+
+                選區新聞
+
+            </div>
+
+
+            <div class="node node-needs">
+
+                <div class="node-icon">
+                    👥
+                </div>
+
+                公共需求
+
+            </div>
+
+
+            <div class="node node-policy">
+
+                <div class="node-icon">
+                    💡
+                </div>
+
+                政策分析
+
+            </div>
+
+
+            <div class="node node-opponent">
+
+                <div class="node-icon">
+                    📊
+                </div>
+
+                公開情報
+
+            </div>
+
+
+            <div class="ai-core">
+
+                <div class="ai-core-content">
+
+                    <div class="ai-core-icon">
+                        🧠
+                    </div>
+
+                    <div class="ai-core-title">
+                        AIVAULT AI
+                    </div>
+
+                    <div class="ai-core-status">
+                        ● INTELLIGENCE READY
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     PRINCIPLE
+========================= -->
+
+<section class="principle">
+
+    <div class="section-inner">
+
+        <div class="section-title">
+            不猜測，從證據開始
+        </div>
+
+        <div class="section-subtitle">
+            AI 不替人民決定，而是協助候選人看清楚問題與可行方案
+        </div>
+
+
+        <div class="flow">
+
+            <div class="flow-card">
+
+                <div class="flow-number">1</div>
+
+                <div class="flow-icon">
+                    📰
+                </div>
+
+                <div class="flow-title">
+                    發生什麼？
+                </div>
+
+                <div class="flow-text">
+                    每日追蹤選區新聞與公共事件
+                </div>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">2</div>
+
+                <div class="flow-icon">
+                    👥
+                </div>
+
+                <div class="flow-title">
+                    人民需要什麼？
+                </div>
+
+                <div class="flow-text">
+                    從公開資料分析公共需求
+                </div>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">3</div>
+
+                <div class="flow-icon">
+                    🏛️
+                </div>
+
+                <div class="flow-title">
+                    政府做到什麼？
+                </div>
+
+                <div class="flow-text">
+                    比對政策、預算與執行進度
+                </div>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">4</div>
+
+                <div class="flow-icon">
+                    💡
+                </div>
+
+                <div class="flow-title">
+                    還缺少什麼？
+                </div>
+
+                <div class="flow-text">
+                    找出政策缺口與改善機會
+                </div>
+
+            </div>
+
+
+            <div class="flow-card">
+
+                <div class="flow-number">5</div>
+
+                <div class="flow-icon">
+                    🎯
+                </div>
+
+                <div class="flow-title">
+                    我能做到什麼？
+                </div>
+
+                <div class="flow-text">
+                    判斷權責、預算與實際可行性
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     INTELLIGENCE
+========================= -->
+
+<section class="intelligence">
+
+    <div class="section-inner">
+
+        <div class="section-title">
+            Campaign Intelligence
+        </div>
+
+        <div class="section-subtitle">
+            六個 AI 情報模組，建立完整的選區決策視野
+        </div>
+
+
+        <div class="modules">
+
+
+            <div class="module">
+
+                <div class="module-icon">
+                    🛰️
+                </div>
+
+                <h3>
+                    District Radar
+                </h3>
+
+                <p>
+                    掃描選區每日發生的事件、
+                    公共建設、交通、社福與地方議題。
+                </p>
+
+            </div>
+
+
+            <div class="module">
+
+                <div class="module-icon">
+                    📰
+                </div>
+
+                <h3>
+                    News Intelligence
+                </h3>
+
+                <p>
+                    AI 自動整理新聞，
+                    判斷選區關聯度、公共影響與政策價值。
+                </p>
+
+            </div>
+
+
+            <div class="module">
+
+                <div class="module-icon">
+                    👤
+                </div>
+
+                <h3>
+                    Public Candidate Intelligence
+                </h3>
+
+                <p>
+                    分析競爭者公開政策、
+                    公開活動與公開政治資訊。
+                </p>
+
+            </div>
+
+
+            <div class="module">
+
+                <div class="module-icon">
+                    👥
+                </div>
+
+                <h3>
+                    Citizen Needs
+                </h3>
+
+                <p>
+                    從公開資料找出選區真正需要被處理的公共問題。
+                </p>
+
+            </div>
+
+
+            <div class="module">
+
+                <div class="module-icon">
+                    💡
+                </div>
+
+                <h3>
+                    Policy Opportunity
+                </h3>
+
+                <p>
+                    將公共問題轉換成可研究、
+                    可討論、可執行的政策方向。
+                </p>
+
+            </div>
+
+
+            <div class="module">
+
+                <div class="module-icon">
+                    🎯
+                </div>
+
+                <h3>
+                    Actionability Engine
+                </h3>
+
+                <p>
+                    分析候選人能直接做什麼、
+                    能爭取什麼，以及不能直接承諾什麼。
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     AI DECISION
+========================= -->
+
+<section class="decision">
+
+    <div class="decision-box">
+
+        <div class="decision-title">
+            🧠 AI，不只是分析選戰
+        </div>
+
+        <div class="decision-text">
+
+            真正重要的不是誰能產生更多口號，
+            而是誰能更快理解問題、找到證據、
+            判斷權責，提出人民真正需要而且可以執行的方案。
+
+        </div>
+
+
+        <div class="decision-list">
+
+
+            <div class="decision-item">
+
+                <strong>
+                    🔎 看見問題
+                </strong>
+
+                <span>
+                    AI 每日掃描選區資訊與公共事件。
+                </span>
+
+            </div>
+
+
+            <div class="decision-item">
+
+                <strong>
+                    📚 找到證據
+                </strong>
+
+                <span>
+                    比對新聞、公開資料、政策與議會資訊。
+                </span>
+
+            </div>
+
+
+            <div class="decision-item">
+
+                <strong>
+                    🎯 真正做到
+                </strong>
+
+                <span>
+                    將政策轉化成可執行、可追蹤的行動。
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =========================
+     FOOTER
+========================= -->
+
+<footer class="footer">
+
+    <strong>
+        AIVAULT Campaign Intelligence
+    </strong>
+
+    <br>
+
+    AI 選區情報與公共政策決策平台
+
+</footer>
+
+
+<script>
+
+/*
+============================================================
+AIVAULT CAMPAIGN INTELLIGENCE
+Homepage
+============================================================
+
+目前：
+Frontend UI
+
+未來：
+Frontend
+   ↓
+Supabase
+   ↓
+Cognitive Engine
+   ↓
+Governance Engine
+   ↓
+AIVAULT AI Gateway
+   ↓
+Gemini / Groq
+   ↓
+Multi-Agent
+============================================================
+*/
+
+
+function startDistrictIntelligence(){
+
+    alert(
+`選區情報中心
+
+下一階段將接入：
+
+📰 每日選區新聞
+🛰️ 選區事件
+🏛️ 市府／議會資料
+👥 公共需求
+📊 公開競爭情報
+💡 政策機會
+
+AI 將每日自動更新。`
+    );
+
+}
+
+
+function startPolicyAI(){
+
+    alert(
+`AI 政策分析
+
+分析流程：
+
+公共問題
+↓
+證據
+↓
+政府現況
+↓
+政策缺口
+↓
+法律權責
+↓
+預算可行性
+↓
+候選人能做什麼
+↓
+政策方案
+↓
+Fact Check
+↓
+AI Review`
+    );
+
+}
+
+</script>
+
+</body>
+</html>
